@@ -1,0 +1,28 @@
+.item-card {
+  background-color: white;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  text-align: center;
+}
+
+.item-img {
+  width: 100%;
+  max-width: 220px;
+  height: 180px;
+  object-fit: contain;
+  margin-bottom: 12px;
+}
+.item-button {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 18px;
+  background-color: #1f2937;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+}
+
+.item-button:hover {
+  opacity: 0.85;
+}

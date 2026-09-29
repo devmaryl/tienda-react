@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "nombre": "Sony ZV-E10 II",
+    "precio": 950000,
+    "stock": 5,
+    "imagen": "/images/sony-zve10.jpg",
+    "descripcion": "Cámara mirrorless APS-C ideal para fotografía, viajes y creación de contenido."
+  },
+  {
+    "id": 2,
+    "nombre": "Canon EOS R50",
+    "precio": 880000,
+    "stock": 4,
+    "imagen": "/images/canon-r50.jpg",
+    "descripcion": "Cámara mirrorless compacta con excelente enfoque automático y gran calidad de imagen."
+  },
+  {
+    "id": 3,
+    "nombre": "Nikon Z50 II",
+    "precio": 990000,
+    "stock": 3,
+    "imagen": "/images/nikon-z50ii.jpg",
+    "descripcion": "Cámara mirrorless APS-C versátil para fotografía y video."
+  },
+  {
+    "id": 4,
+    "nombre": "Sony 35mm f/1.8",
+    "precio": 420000,
+    "stock": 6,
+    "imagen": "/images/sony-35mm.jpg",
+    "descripcion": "Lente fijo luminoso ideal para retratos, fotografía urbana y situaciones con poca luz."
+  },
+  {
+    "id": 5,
+    "nombre": "Trípode Fotográfico",
+    "precio": 85000,
+    "stock": 10,
+    "imagen": "/images/tripode.jpg",
+    "descripcion": "Trípode liviano y regulable para cámaras mirrorless y réflex."
+  },
+  {
+    "id": 6,
+    "nombre": "Tarjeta SD 128 GB",
+    "precio": 45000,
+    "stock": 15,
+    "imagen": "/images/sd-128.jpg",
+    "descripcion": "Tarjeta de memoria de alta velocidad para fotografía y grabación de video."
+  }
+]
