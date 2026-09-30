@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import CartWidget from '../CartWidget/CartWidget.jsx'
 import './Header.css'
 
 function Header() {
@@ -17,7 +18,9 @@ function Header() {
           </li>
 
           <li>
-            <Link to="/carrito">Carrito</Link>
+            <Link to="/carrito">
+              Carrito <CartWidget />
+            </Link>
           </li>
         </ul>
       </nav>

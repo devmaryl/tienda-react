@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { useCart } from '../context/CartContext.jsx'
 
 function ProductoDetalle() {
   const { id } = useParams()
@@ -7,6 +8,8 @@ function ProductoDetalle() {
   const [producto, setProducto] = useState(null)
   const [cargando, setCargando] = useState(true)
   const [error, setError] = useState(null)
+
+  const { addToCart } = useCart()
 
   useEffect(() => {
     fetch('/data/productos.json')
@@ -59,6 +62,10 @@ function ProductoDetalle() {
       <p>Precio: ${producto.precio}</p>
 
       <p>Stock disponible: {producto.stock}</p>
+
+      <button onClick={() => addToCart(producto)}>
+        Agregar al carrito
+      </button>
     </section>
   )
 }
