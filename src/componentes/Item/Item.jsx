@@ -11,7 +11,11 @@ function Item({ producto }) {
       />
 
       <h3>{producto.nombre}</h3>
-      <p>${producto.precio}</p>
+
+      <p>
+        ${producto.precio.toLocaleString('es-AR')}
+      </p>
+
       <p>Stock: {producto.stock}</p>
 
       <Link

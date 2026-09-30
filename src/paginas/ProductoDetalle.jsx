@@ -59,7 +59,7 @@ function ProductoDetalle() {
 
       <p>{producto.descripcion}</p>
 
-      <p>Precio: ${producto.precio}</p>
+      <p>Precio: ${producto.precio.toLocaleString('es-AR')}</p>
 
       <p>Stock disponible: {producto.stock}</p>
 
