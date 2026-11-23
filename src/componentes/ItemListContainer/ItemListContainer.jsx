@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
-import Item from '../Item/Item'
+import { collection, getDocs } from 'firebase/firestore'
+import { db } from '../../firebase/config.js'
+import Item from '../Item/Item.jsx'
 import './ItemListContainer.css'
 
 function ItemListContainer() {
@@ -8,19 +10,19 @@ function ItemListContainer() {
   const [error, setError] = useState(null)
 
   useEffect(() => {
-    fetch('/data/productos.json')
-      .then((respuesta) => {
-        if (!respuesta.ok) {
-          throw new Error('No se pudieron cargar los productos')
-        }
+    const productosDB = collection(db, 'productos')
 
-        return respuesta.json()
+    getDocs(productosDB)
+      .then((respuesta) => {
+        const productosFirebase = respuesta.docs.map((documento) => ({
+          ...documento.data(),
+          id: documento.id,
+        }))
+
+        setProductos(productosFirebase)
       })
-      .then((datos) => {
-        setProductos(datos)
-      })
-      .catch((error) => {
-        setError(error.message)
+      .catch(() => {
+        setError('No se pudieron cargar los productos desde Firebase.')
       })
       .finally(() => {
         setCargando(false)
