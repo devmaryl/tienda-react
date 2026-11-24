@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { doc, getDoc } from 'firebase/firestore'
+import { db } from '../firebase/config.js'
 import { useCart } from '../context/CartContext.jsx'
 
 function ProductoDetalle() {
@@ -12,31 +14,31 @@ function ProductoDetalle() {
   const { addToCart } = useCart()
 
   useEffect(() => {
-    fetch('/data/productos.json')
-      .then((respuesta) => {
-        if (!respuesta.ok) {
-          throw new Error('No se pudo cargar el producto')
-        }
+    const cargarProducto = async () => {
+      try {
+        setCargando(true)
+        setError(null)
 
-        return respuesta.json()
-      })
-      .then((datos) => {
-        const productoEncontrado = datos.find(
-          (producto) => producto.id === Number(id)
-        )
+        const productoRef = doc(db, 'productos', id)
+        const respuesta = await getDoc(productoRef)
 
-        if (!productoEncontrado) {
+        if (!respuesta.exists()) {
           throw new Error('Producto no encontrado')
         }
 
-        setProducto(productoEncontrado)
-      })
-      .catch((error) => {
-        setError(error.message)
-      })
-      .finally(() => {
+        setProducto({
+          ...respuesta.data(),
+          id: respuesta.id,
+        })
+      } catch (error) {
+        console.error('Error al cargar el producto:', error)
+        setError('No se pudo cargar el producto.')
+      } finally {
         setCargando(false)
-      })
+      }
+    }
+
+    cargarProducto()
   }, [id])
 
   if (cargando) {
@@ -59,7 +61,9 @@ function ProductoDetalle() {
 
       <p>{producto.descripcion}</p>
 
-      <p>Precio: ${producto.precio.toLocaleString('es-AR')}</p>
+      <p>
+        Precio: ${producto.precio.toLocaleString('es-AR')}
+      </p>
 
       <p>Stock disponible: {producto.stock}</p>
 
@@ -71,3 +75,4 @@ function ProductoDetalle() {
 }
 
 export default ProductoDetalle
+
