@@ -1,14 +1,24 @@
+import { Link } from 'react-router-dom'
 import { useCart } from '../context/CartContext.jsx'
 import './Carrito.css'
 
 function Carrito() {
-  const { carrito } = useCart()
+  const {
+    carrito,
+    removeFromCart,
+    clearCart,
+  } = useCart()
 
   if (carrito.length === 0) {
     return (
       <section className="carrito-container">
         <h2>Carrito de compras</h2>
+
         <p>Tu carrito está vacío.</p>
+
+        <Link to="/productos">
+          Ver productos
+        </Link>
       </section>
     )
   }
@@ -48,6 +58,13 @@ function Carrito() {
               Subtotal: $
               {(producto.precio * producto.cantidad).toLocaleString('es-AR')}
             </p>
+
+            <button
+              type="button"
+              onClick={() => removeFromCart(producto.id)}
+            >
+              Eliminar
+            </button>
           </div>
         </article>
       ))}
@@ -55,6 +72,13 @@ function Carrito() {
       <h3 className="carrito-total">
         Total: ${total.toLocaleString('es-AR')}
       </h3>
+
+      <button
+        type="button"
+        onClick={clearCart}
+      >
+        Vaciar carrito
+      </button>
     </section>
   )
 }

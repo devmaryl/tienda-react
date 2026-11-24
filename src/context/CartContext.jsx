@@ -29,6 +29,18 @@ export function CartProvider({ children }) {
     })
   }
 
+  const removeFromCart = (productoId) => {
+    setCarrito((carritoActual) =>
+      carritoActual.filter(
+        (producto) => producto.id !== productoId
+      )
+    )
+  }
+
+  const clearCart = () => {
+    setCarrito([])
+  }
+
   const totalCantidad = carrito.reduce(
     (total, producto) => total + producto.cantidad,
     0
@@ -39,6 +51,8 @@ export function CartProvider({ children }) {
       value={{
         carrito,
         addToCart,
+        removeFromCart,
+        clearCart,
         totalCantidad,
       }}
     >
