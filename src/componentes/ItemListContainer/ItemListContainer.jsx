@@ -1,5 +1,15 @@
 import { useEffect, useState } from 'react'
 import { collection, getDocs } from 'firebase/firestore'
+import {
+  Button,
+  Col,
+  Container,
+  Form,
+  InputGroup,
+  Row,
+  Spinner,
+} from 'react-bootstrap'
+import { FaSearch } from 'react-icons/fa'
 import { db } from '../../firebase/config.js'
 import Item from '../Item/Item.jsx'
 import './ItemListContainer.css'
@@ -78,65 +88,96 @@ function ItemListContainer() {
   }
 
   if (cargando) {
-    return <p>Cargando productos...</p>
+    return (
+      <Container className="py-5 text-center">
+        <Spinner animation="border" role="status" />
+
+        <p className="mt-3">
+          Cargando productos...
+        </p>
+      </Container>
+    )
   }
 
   if (error) {
-    return <p>Error: {error}</p>
+    return (
+      <Container className="py-5">
+        <p>{error}</p>
+      </Container>
+    )
   }
 
   return (
-    <section className="productos-section">
-      <h2>Nuestros productos</h2>
+    <Container className="py-4">
+      <h2 className="text-center mb-4">
+        Nuestros productos
+      </h2>
 
-      <input
-        type="search"
-        placeholder="Buscar producto..."
-        value={busqueda}
-        onChange={handleBusqueda}
-        aria-label="Buscar productos por nombre"
-      />
+      <Row className="justify-content-center mb-4">
+        <Col xs={12} md={8} lg={6}>
+          <InputGroup>
+            <InputGroup.Text>
+              <FaSearch />
+            </InputGroup.Text>
+
+            <Form.Control
+              type="search"
+              placeholder="Buscar producto..."
+              value={busqueda}
+              onChange={handleBusqueda}
+              aria-label="Buscar productos por nombre"
+            />
+          </InputGroup>
+        </Col>
+      </Row>
 
       {productosFiltrados.length === 0 ? (
-        <p>No se encontraron productos.</p>
+        <p className="text-center">
+          No se encontraron productos.
+        </p>
       ) : (
         <>
-          <div className="productos-grid">
+          <Row className="g-4">
             {productosPagina.map((producto) => (
-              <Item
+              <Col
                 key={producto.id}
-                producto={producto}
-              />
+                xs={12}
+                md={6}
+                lg={4}
+              >
+                <Item producto={producto} />
+              </Col>
             ))}
-          </div>
+          </Row>
 
           {totalPaginas > 1 && (
-            <div>
-              <button
+            <div className="d-flex justify-content-center align-items-center gap-3 mt-4">
+              <Button
+                variant="outline-primary"
                 type="button"
                 onClick={paginaAnterior}
                 disabled={paginaActual === 1}
               >
                 Anterior
-              </button>
+              </Button>
 
               <span>
-                {' '}
-                Página {paginaActual} de {totalPaginas}{' '}
+                Página {paginaActual} de {totalPaginas}
               </span>
 
-              <button
+              <Button
+                variant="outline-primary"
                 type="button"
                 onClick={paginaSiguiente}
                 disabled={paginaActual === totalPaginas}
               >
                 Siguiente
-              </button>
+              </Button>
             </div>
           )}
         </>
       )}
-    </section>
+    </Container>
   )
 }
 

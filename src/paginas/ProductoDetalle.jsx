@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { doc, getDoc } from 'firebase/firestore'
+import { Helmet } from 'react-helmet'
+import { Button, Container, Spinner } from 'react-bootstrap'
+import { FaCartPlus } from 'react-icons/fa'
 import { db } from '../firebase/config.js'
 import { useCart } from '../context/CartContext.jsx'
 
@@ -42,35 +45,76 @@ function ProductoDetalle() {
   }, [id])
 
   if (cargando) {
-    return <p>Cargando producto...</p>
+    return (
+      <Container className="py-5 text-center">
+        <Spinner animation="border" role="status" />
+
+        <p className="mt-3">
+          Cargando producto...
+        </p>
+      </Container>
+    )
   }
 
   if (error) {
-    return <p>Error: {error}</p>
+    return (
+      <Container className="py-5">
+        <p>Error: {error}</p>
+      </Container>
+    )
   }
 
   return (
-    <section>
-      <img
-        src={producto.imagen}
-        alt={producto.nombre}
-        width="300"
-      />
+    <>
+      <Helmet>
+        <title>
+          Focus Store | {producto.nombre}
+        </title>
 
-      <h2>{producto.nombre}</h2>
+        <meta
+          name="description"
+          content={`Conocé ${producto.nombre}. ${producto.descripcion}`}
+        />
+      </Helmet>
 
-      <p>{producto.descripcion}</p>
+      <Container className="py-5 text-center">
+        <img
+          src={producto.imagen}
+          alt={producto.nombre}
+          style={{
+            maxWidth: '350px',
+            width: '100%',
+            height: '300px',
+            objectFit: 'contain',
+          }}
+        />
 
-      <p>
-        Precio: ${producto.precio.toLocaleString('es-AR')}
-      </p>
+        <h2 className="mt-4">
+          {producto.nombre}
+        </h2>
 
-      <p>Stock disponible: {producto.stock}</p>
+        <p className="lead">
+          {producto.descripcion}
+        </p>
 
-      <button onClick={() => addToCart(producto)}>
-        Agregar al carrito
-      </button>
-    </section>
+        <p className="fs-4 fw-bold">
+          ${producto.precio.toLocaleString('es-AR')}
+        </p>
+
+        <p>
+          Stock disponible: {producto.stock}
+        </p>
+
+        <Button
+          variant="dark"
+          onClick={() => addToCart(producto)}
+          aria-label={`Agregar ${producto.nombre} al carrito`}
+        >
+          <FaCartPlus className="me-2" />
+          Agregar al carrito
+        </Button>
+      </Container>
+    </>
   )
 }
 
