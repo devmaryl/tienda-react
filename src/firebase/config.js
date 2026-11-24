@@ -2,12 +2,12 @@ import { initializeApp } from 'firebase/app'
 import { getFirestore } from 'firebase/firestore'
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyB6haZGU4A1W4LVrMX8C5EU1CM5KhFILGo',
-  authDomain: 'focus-store-89884.firebaseapp.com',
-  projectId: 'focus-store-89884',
-  storageBucket: 'focus-store-89884.firebasestorage.app',
-  messagingSenderId: '320511528614',
-  appId: '1:320511528614:web:88cc4f96b05793d4f26e67'
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
 }
 
 const app = initializeApp(firebaseConfig)
